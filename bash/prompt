@@ -287,6 +287,11 @@ set_prompt () {
     PS1+="\[$symbol_color_failed\]"
   fi
   PS1+="$symbol \[$reset\]"
+
+  # After each command, append to the history file and reread it
+  # This enables shared history for all open sessions
+  history -a; history -c; history -r
 }
 
-PROMPT_COMMAND='set_prompt'
+export PROMPT_COMMAND='set_prompt'
+

@@ -1,5 +1,5 @@
 # ignore duplicates and lines beginning with space
-export HISTCONTROL=ignoreboth
+export HISTCONTROL=ignoreboth:erasedups
 export HISTSIZE=5000
 shopt -s histappend
 
