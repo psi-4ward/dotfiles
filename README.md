@@ -2,7 +2,7 @@ psi-dotfiles(1) -- Bash and vim konfiguration
 =============================================
 
 ## INSTALLATION
-`curl -L https://raw.githubusercontent.com/psi-4ward/dotfiles/master/install.sh | bash -s -- [OPTIONS]`
+`curl -sSL https://raw.githubusercontent.com/psi-4ward/dotfiles/master/install.sh | bash -s -- [OPTIONS]`
 
 * `-t <dir>`:
   Target directory to store the files. Default is $PWD/.dotfiles

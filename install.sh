@@ -38,7 +38,7 @@ echo Installing to $TARGETDIR
 
 if [ ! -e install.sh ] ; then
   echo Downloading ...
-  curl -L https://github.com/psi-4ward/dotfiles/archive/master.tar.gz | tar xz --strip 1
+  curl -sSL https://github.com/psi-4ward/dotfiles/archive/master.tar.gz | tar xz --strip 1
 fi
 
 function installBashrc {
