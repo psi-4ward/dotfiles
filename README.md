@@ -1,6 +1,7 @@
 psi-dotfiles(1) -- Bash and vim konfiguration
 =============================================
 
+
 ## INSTALLATION
 `curl -sSL https://raw.githubusercontent.com/psi-4ward/dotfiles/master/install.sh | bash -s -- [OPTIONS]`
 
@@ -9,12 +10,35 @@ psi-dotfiles(1) -- Bash and vim konfiguration
 * `-g`: Global installation using /etc/{bashrc.bashrc,vimrc,inputrc}
 
 
+## HINTS
+* `Alt .`:
+  Insert last argument from last cmd
+* `Alt backspace`:
+  Delete word
+* `Ctrl w`:
+  Delete argument
+* `Ctrl a`:
+  Move cursor to beginning of line
+* `Ctrl e`:
+  Move cursor to end of line
+* `Ctrl r`:
+  Search the history
+* `^search^replace`:
+  Take last cmd, replace *search* with *replace* and execute it
+* `!^`, `!$', '!*', '!:2':
+  First, last, all, second Argument of the **previous** command
+* `!#^`, `!#$', '!#:2':
+  First, last, second Argument of the **current** command
+* `cd -`:
+  Go to last directory
+ 
+ 
 ## ALIASES/FUNCTIONS
 
-* `back`:
-  Go to last directory
 * `backup <file> [file ...]`:
   Create a copy of the files or directories and append current date-time
+* `cd --`:
+  List recently used directories with a numeric key, enter a directory using `cd -2`
 * `clip`:
   Copy stdin to clipboard
 * `curl-head`:
