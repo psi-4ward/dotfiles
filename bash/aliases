@@ -1,0 +1,159 @@
+alias ssh="ssh -o TCPKeepAlive=yes"
+alias vi=vim
+
+# fix sudo for aliases
+alias sudo='sudo '
+
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+
+alias ls='ls --color=auto'
+alias ll='ls -lh --color=auto'
+alias la='ls -lah --color=auto'
+alias l='ls -lh --color=auto'
+alias grep='grep --color'
+
+# do not delete / or prompt if deleting more than 3 files at a time #
+alias rm='rm -I --preserve-root'
+
+# sudo prefixes
+alias svi='sudo vi'
+alias systemctl="sudo systemctl"
+alias journalctl="sudo journalctl"
+alias chown='sudo chown --preserve-root'
+alias chgrp='sudo chgrp --preserve-root'
+alias reboot='sudo /sbin/reboot'
+alias poweroff='sudo /sbin/poweroff'
+alias halt='sudo /sbin/halt'
+alias shutdown='sudo /sbin/shutdown'
+
+alias chmod='chmod --preserve-root'
+
+#h ussh: ssh ignoring KnownHostsFile
+alias 'ussh'='ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
+#h uscp: scp ignoring KnownHostsFile
+alias 'uscp'='scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
+
+#h clip: copy stdin to clipboard
+alias clip='xclip -in -selection clipboard'
+
+#h back: go to last directory
+alias back='cd $OLDPWD'
+
+#h diff: use colordiff instead
+[ -e "`which colordiff`" ] && alias diff='colordiff'
+
+#h mysqldump: mysqldump with utf8 charset
+alias mysqldump='mysqldump --default-character-set=utf8'
+
+#h nowdate: prints current date
+alias nowdate='date +"%Y-%m-%d"'
+
+#h now: prints current date with time
+alias now='date +"%Y-%m-%d_%H-%M-%S"'
+
+#h psg: find a process
+alias psg="ps aux | grep -v grep | grep -i -e VSZ -e"
+
+#h psmem: get top process eating memory
+alias psmem='ps auxf | sort -nr -k 4 | head -n10'
+
+#h pscpu: get top process eating cpu ##
+alias pscpu='ps auxf | sort -nr -k 3 | head -n10'
+
+#h listen: List all TCP/UDP connections (for a given process)
+listen() {
+  [ "$1" == "" ] && lsof -P -i -n || lsof -P -i -n | grep -i $1
+}
+
+#h backup: make a copy and append current datetime
+backup() {
+  for file in $@ ; do
+    cp -r "$file"{,.`date +"%Y-%m-%d_%H-%M-%S"`.bak};
+  done
+}
+
+#h mcd: make a directory and cd into it
+mcd() {
+    mkdir -p "$@" && cd "$@"
+}
+
+#h ips: show my IPs
+ips() {
+  echo Hostname: `hostname` 
+  for iface in $(ip addr | grep 'state UP' | cut -f2 -d" "); do
+    iface=${iface/:/}
+    echo $iface: $(ip addr show $iface | grep -o "inet [0-9]*\.[0-9]*\.[0-9]*\.[0-9]*" | grep -o "[0-9]*\.[0-9]*\.[0-9]*\.[0-9]*")
+  done
+  local PUBIP=`dig @ns1.google.com -t txt o-o.myaddr.l.google.com +short +time=1`
+  [ "$PUBIP" != "" ] && echo Public: ${PUBIP//\"/}
+}
+
+#h genpasswd <len>: Generate a random password
+genpasswd() {
+  local len=$1
+  [ "$len" == "" ] && len=16
+  strings /dev/urandom | grep -o '[[:alnum:]]' | head -n $len | tr -d '\n'; echo 
+}
+
+#h curl-head: GET-Request but drop content body
+alias curl-head="curl -s -D - -o /dev/null"
+
+#h curl-resolve IP URL: GET-Request but resolve Host to given IP (vHost check)
+curl-resolve() {
+  if [ $# -lt 2 ]; then
+    echo Usage: $0 IP[:Port] URL
+    return
+  fi
+  
+  local HOST=`echo $2 | sed 's%https*://\([^/]*\)/.*%\1%gI'`
+  if [ $? != 0 ] || [ "$HOST" == "" ]; then
+    echo Could not parse Host from $1
+    return
+  fi
+  
+  local IP=`echo $1 | cut -d ":" -f 1`
+  local PORT=`echo $1 | cut -d ":" -f 2 -s`
+  [ "$PORT" == "" ] && PORT=80
+  
+  curl --resolve $HOST:$PORT:$IP -s -D - $2
+}
+
+#h showhelp: show this helpscreen
+showhelp() {
+  grep -F '#h' $BASH_SOURCE | grep -vF "sed 's/#h" | sed 's/#h //' | column -t -s: | sort
+  
+  if [ -e ~/.bashrc.local ]; then
+    grep -F '#h'  ~/.bashrc.local | sed 's/#h //' | column -t -s: | sort
+  fi
+}
+
+
+if [ -f /etc/lsb-release ]; then
+  source /etc/lsb-release
+  
+  if [ "$DISTRIB_ID" == 'Ubuntu' ]; then
+    alias acs='apt-cache search'
+    alias acsh='apt-cache show'
+
+    alias agi="sudo apt-get install"
+    alias agr="sudo apt-get remove"
+    alias agud="sudo apt-get update"
+    alias agug="sudo apt-get upgrade"
+    alias agdug="sudo apt-get dist-upgrade"
+  fi
+  
+  if [ "$DISTRIB_ID" == 'Arch' ]; then
+    alias pacupga="sudo pacman -Syyu && yaourt -Syua --noconfirm --devel"
+    alias pacupg="sudo pacman -Syyu"  # Synchronize with repositories and then upgrade packages
+    alias pacin='sudo pacman -S'      # Install specific package(s)
+    alias pacrem='sudo pacman -Rns'   # Remove the specified package(s), its configuration(s) and unneeded dependencies
+    alias pacinfo='pacman -Si'    # Display information about a given package
+    alias pacser='pacman -Ss'     # Search for package(s)
+    alias pacloc='pacman -Qi'     # Display information about a given local package
+    alias paclocs='pacman -Qs'    # Search for package(s) in the local database
+  fi
+fi
+

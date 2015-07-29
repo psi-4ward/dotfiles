@@ -1,0 +1,32 @@
+# ignore duplicates and lines beginning with space
+export HISTCONTROL=ignoreboth
+export HISTSIZE=5000
+shopt -s histappend
+
+# correct misspelled folder names
+shopt -s cdspell
+
+# enable ** globbing
+shopt -s globstar
+
+# tab completion
+set show-all-if-ambiguous on
+set show-all-if-unmodified on
+
+# Rewrap lines on window resize
+shopt -s checkwinsize
+
+
+# Command-not-found hints
+[ -r /etc/profile.d/cnf.sh ] && . /etc/profile.d/cnf.sh
+
+# some colors
+export LESS_TERMCAP_mb=$(printf '\e[01;31m') # enter blinking mode – red
+export LESS_TERMCAP_md=$(printf '\e[01;35m') # enter double-bright mode – bold, magenta
+export LESS_TERMCAP_me=$(printf '\e[0m') # turn off all appearance modes (mb, md, so, us)
+export LESS_TERMCAP_se=$(printf '\e[0m') # leave standout mode
+export LESS_TERMCAP_so=$(printf '\e[01;33m') # enter standout mode – yellow
+export LESS_TERMCAP_ue=$(printf '\e[0m') # leave underline mode
+export LESS_TERMCAP_us=$(printf '\e[04;36m') # enter underline mode – cyan 
+
+export VISUAL="vim"
