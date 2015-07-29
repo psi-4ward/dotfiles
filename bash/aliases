@@ -43,7 +43,7 @@ alias clip='xclip -in -selection clipboard'
 alias back='cd $OLDPWD'
 
 #h diff: use colordiff instead
-[ -e "`which colordiff`" ] && alias diff='colordiff'
+[ -e "`which colordiff 2>/dev/null`" ] && alias diff='colordiff'
 
 #h mysqldump: mysqldump with utf8 charset
 alias mysqldump='mysqldump --default-character-set=utf8'
@@ -130,6 +130,18 @@ showhelp() {
   fi
 }
 
+dotfiles-remoteinstall() {
+  if [ "$1" == "" ] ; then
+    echo "Usage: dotfiles-remoteinstall user@host[:port]"
+    return
+  fi
+  
+  local USER_HOST=`echo $1 | cut -d ":" -f 1`
+  local PORT=`echo $1 | cut -d ":" -f 2 -s`
+  [ "$PORT" == "" ] && PORT=22
+  
+  ssh -p $PORT $USER_HOST "curl -sSL https://raw.githubusercontent.com/psi-4ward/dotfiles/master/install.sh | bash -s -- $2 $3 $4 $5 $6 $7 $8 $9"
+}
 
 if [ -f /etc/lsb-release ]; then
   source /etc/lsb-release
