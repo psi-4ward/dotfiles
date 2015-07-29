@@ -9,6 +9,7 @@ DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 [ -e $DIR/settings ] && source $DIR/settings
 [ -e $DIR/prompt ] && source $DIR/prompt
 [ -e $DIR/aliases ] && source $DIR/aliases
+[ -e $DIR/acd_func ] && source $DIR/acd_func
 
 
 [ -e $HOME/.bashrc.local ] && source $HOME/.bashrc.local
