@@ -130,6 +130,7 @@ showhelp() {
   fi
 }
 
+#h dotfiles-remoteinstall: install dotfiles using ssh on a remote machine
 dotfiles-remoteinstall() {
   if [ "$1" == "" ] ; then
     echo "Usage: dotfiles-remoteinstall user@host[:port]"
