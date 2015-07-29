@@ -23,8 +23,10 @@ psi-dotfiles(1) -- Bash and vim konfiguration
   Curl GET-Request but resolve Host to given IP (useful for vHost checking)
 * `diff`:
   Use colordiff if installed
-* `genpasswd <len>`:
-  Generate a random password
+* `dotfiles-update`:
+  Update the dotfiles
+* `dotfiles-remoteinstall user@host[:port]`:
+  install dotfiles using ssh on a remote machine
 * `ips`:
   Show my IPs
 * `listen [proc]`:
