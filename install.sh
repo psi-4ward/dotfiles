@@ -36,10 +36,8 @@ cd $TARGETDIR
 TARGETDIR=`pwd` # use absolute path from here
 echo Installing to $TARGETDIR
 
-if [ ! -e install.sh ] ; then
-  echo Downloading ...
-  curl -sSL https://github.com/psi-4ward/dotfiles/archive/master.tar.gz | tar xz --strip 1
-fi
+echo Downloading ...
+curl -sSL https://github.com/psi-4ward/dotfiles/archive/master.tar.gz | tar xz --strip 1
 
 function installBashrc {
   local BASHRC_FILE=$TARGETDIR/bash/bashrc
@@ -52,13 +50,15 @@ function installBashrc {
 }
 
 function installInputrc {
-  [ -e $1 ] && rm $1
+  [ -h $1 ] && rm $1
+  [ -e $1 ] && mv $1 $1.`date +"%Y-%m-%d"`.bak
   echo Symlinking $1
   ln -s $TARGETDIR/bash/inputrc $1
 }
 
 function installVimrc {
-  [ -e $1 ] && rm $1
+  [ -h $1 ] && rm $1
+  [ -e $1 ] && mv $1 $1.`date +"%Y-%m-%d"`.bak
   echo Symlinking $1
   ln -s $TARGETDIR/vim/vimrc $1
 }
