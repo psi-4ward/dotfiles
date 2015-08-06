@@ -259,11 +259,11 @@ get_git_info () {
 
 set_prompt () {
   Last_Command=$? # Must come first!
-  
+ 
   # <user>
   PS1="\[$user_color\]\u\[$reset\] "
   # at <hostname>
-  PS1+="\[$preposition_color\]at\[$reset\] \[$device_color\]\h\[$reset\] "
+  PS1+="\[$preposition_color\]at\[$reset\] \[$device_color\]\H\[$reset\] "
   # in <directory>
   PS1+="\[$preposition_color\]in\[$reset\] \[$dir_color\]\w\[$reset\]"
   # GIT
