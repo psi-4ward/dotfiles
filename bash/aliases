@@ -19,6 +19,7 @@ alias grep='grep --color'
 alias rm='rm -I --preserve-root'
 
 # sudo prefixes
+alias root="sudo bash --init-file $HOME/.bashrc"
 alias svi='sudo vi'
 alias systemctl="sudo systemctl"
 alias journalctl="sudo journalctl"
