@@ -3,6 +3,9 @@ if filereadable("/etc/vim/vimrc")
   source /etc/vim/vimrc
 endif
 
+" add our vimruntimepath
+let &runtimepath = &runtimepath . ',' . expand("$DOTFILESPATH") . '/vim'
+
 " Tabs
 set tabstop=2
 set shiftwidth=2
@@ -13,5 +16,7 @@ set expandtab
 set smartcase
 set ignorecase
 
+" Appearance
 set laststatus=2
+colorscheme darcula
 syntax on

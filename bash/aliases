@@ -1,5 +1,5 @@
 alias ssh="ssh -o TCPKeepAlive=yes"
-alias vi="vim -u /home/${SUDO_USER:-$USER}/.vimrc"
+alias vi="vim -u $DOTFILESPATH/vim/vimrc"
 
 # fix sudo for aliases
 alias sudo='sudo '
