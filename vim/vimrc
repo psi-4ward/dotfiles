@@ -1,4 +1,7 @@
 " load system defaults
+if filereadable("/etc/vimrc")
+  source /etc/vimrc
+endif
 if filereadable("/etc/vim/vimrc")
   source /etc/vim/vimrc
 endif
