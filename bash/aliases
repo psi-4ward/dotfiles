@@ -4,6 +4,16 @@ alias vi="vim -u $DOTFILESPATH/vim/vimrc"
 # fix sudo for aliases
 alias sudo='sudo '
 
+salias() {
+  local aliasName=$1
+  shift
+  if [[ $UID != 0 ]]; then
+    alias $aliasName="sudo $@"
+  else
+    alias $aliasName="$@"
+  fi
+}
+
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
@@ -20,15 +30,15 @@ alias rm='rm -I --preserve-root'
 
 # sudo prefixes
 alias root="sudo bash --init-file $HOME/.bashrc"
-alias svi='sudo vi'
-alias systemctl="sudo systemctl"
-alias journalctl="sudo journalctl"
-alias chown='sudo chown --preserve-root'
-alias chgrp='sudo chgrp --preserve-root'
-alias reboot='sudo /sbin/reboot'
-alias poweroff='sudo /sbin/poweroff'
-alias halt='sudo /sbin/halt'
-alias shutdown='sudo /sbin/shutdown'
+salias svi vi
+salias systemctl systemctl
+salias journalctl journalctl
+salias chown "chown --preserve-root"
+salias chgrp "chgrp --preserve-root"
+salias reboot /sbin/reboot
+salias poweroff /sbin/poweroff
+salias halt /sbin/halt
+salias shutdown /sbin/shutdown
 
 alias chmod='chmod --preserve-root'
 
