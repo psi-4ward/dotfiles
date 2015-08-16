@@ -1,9 +1,17 @@
+" load system defaults
+if filereadable("/etc/vim/vimrc")
+  source /etc/vim/vimrc
+endif
+
+" Tabs
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
 set expandtab
 
+" Search
 set smartcase
 set ignorecase
+
 set laststatus=2
 syntax on
