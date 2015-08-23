@@ -187,7 +187,7 @@ if [ -f /etc/lsb-release ]; then
     alias agdug="sudo apt-get dist-upgrade"
   fi
   
-  if [ "$DISTRIB_ID" == 'Arch' ]; then
+  if [ "$DISTRIB_ID" == 'Arch' ] || [ "$DISTRIB_ID" == 'ManjaroLinux' ]; then
     alias pacupga="sudo pacman -Syyu && yaourt -Syua --noconfirm --devel"
     alias pacupg="sudo pacman -Syyu"  # Synchronize with repositories and then upgrade packages
     alias pacin='sudo pacman -S'      # Install specific package(s)
