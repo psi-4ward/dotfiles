@@ -257,6 +257,10 @@ get_git_info () {
   fi
 }
 
+# up/down should search only matching lines
+bind '"\e[A": history-search-backward'
+bind '"\e[B": history-search-forward'
+
 set_prompt () {
   Last_Command=$? # Must come first!
  
@@ -288,9 +292,8 @@ set_prompt () {
   fi
   PS1+="$symbol \[$reset\]"
 
-  # After each command, append to the history file and reread it
-  # This enables shared history for all open sessions
-  history -a; history -c; history -r
+  # After each command, append to the history file
+  history -a
 }
 
 export PROMPT_COMMAND='set_prompt'
