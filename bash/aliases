@@ -33,6 +33,7 @@ alias root="sudo bash --init-file $HOME/.bashrc"
 salias svi vi
 salias systemctl systemctl
 salias journalctl journalctl
+salias docker docker
 salias chown "chown --preserve-root"
 salias chgrp "chgrp --preserve-root"
 salias reboot /sbin/reboot
@@ -128,8 +129,11 @@ curl-resolve() {
   local IP=`echo $1 | cut -d ":" -f 1`
   local PORT=`echo $1 | cut -d ":" -f 2 -s`
   [ "$PORT" == "" ] && PORT=80
-  
-  curl --resolve $HOST:$PORT:$IP -s -D - $2
+
+  local URL=$2
+  shift; shift 
+ 
+  curl --resolve $HOST:$PORT:$IP -s -D - $URL "$@"
 }
 
 #h showhelp: show this helpscreen
@@ -157,16 +161,9 @@ dotfiles-remoteinstall() {
 #h dotfiles-update: update the dotfiles
 dotfiles-update() {
   local OLDDIR=`pwd`
-  local DIR
-  local SOURCE="${BASH_SOURCE[0]}"
-  while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
-    DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
-    SOURCE="$(readlink "$SOURCE")"
-    [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
-  done
-  cd "$( cd -P "$( dirname "$SOURCE" )" && cd .. && pwd )"
   
   echo Updating dotfiles ...
+  cd $DOTFILESPATH
   curl -sSL https://github.com/psi-4ward/dotfiles/archive/master.tar.gz | tar xz --strip 1
   source bash/bashrc
   
