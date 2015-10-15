@@ -75,6 +75,15 @@ alias psmem='ps auxf | sort -nr -k 4 | head -n10'
 #h pscpu: get top process eating cpu ##
 alias pscpu='ps auxf | sort -nr -k 3 | head -n10'
 
+#h became <user>: sudo to the specific <user>
+became() {
+  if [ "$1" = "" ]; then
+    echo "Usage: became <user>"
+    return 1
+  fi
+  sudo -u $1 bash --init-file $HOME/.bashrc
+}
+
 #h listen: List all TCP/UDP connections (for a given process)
 listen() {
   [ "$1" == "" ] && lsof -P -i -n || lsof -P -i -n | grep -i $1
