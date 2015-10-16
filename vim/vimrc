@@ -20,6 +20,8 @@ set smartcase
 set ignorecase
 
 " Appearance
+set list listchars=tab:»·,trail:·
+set list
 set laststatus=2
 colorscheme darcula
 syntax on
