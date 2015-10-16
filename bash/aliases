@@ -30,7 +30,7 @@ alias rm='rm -I --preserve-root'
 
 # sudo prefixes
 alias root="sudo bash --init-file $HOME/.bashrc"
-salias svi vi
+alias svi="sudo -E vi"
 salias systemctl systemctl
 salias journalctl journalctl
 salias docker docker
