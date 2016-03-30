@@ -34,6 +34,7 @@ alias svi="sudo -E vi"
 salias systemctl systemctl
 salias journalctl journalctl
 salias docker docker
+salias docker-compose docker-compose
 salias chown "chown --preserve-root"
 salias chgrp "chgrp --preserve-root"
 salias reboot /sbin/reboot
@@ -129,7 +130,7 @@ curl-resolve() {
     return
   fi
   
-  local HOST=`echo $2 | sed 's%https*://\([^/]*\)/.*%\1%gI'`
+  local HOST=`echo $2 | sed 's%https*://\([^/:]*\).*%\1%gI'`
   if [ $? != 0 ] || [ "$HOST" == "" ]; then
     echo Could not parse Host from $1
     return
@@ -142,6 +143,7 @@ curl-resolve() {
   local URL=$2
   shift; shift 
  
+  echo curl --resolve $HOST:$PORT:$IP -s -D - $URL "$@"
   curl --resolve $HOST:$PORT:$IP -s -D - $URL "$@"
 }
 
