@@ -34,6 +34,7 @@ alias svi="sudo -E vi"
 salias systemctl systemctl
 salias journalctl journalctl
 salias docker docker
+salias docker-compose docker-compose
 salias chown "chown --preserve-root"
 salias chgrp "chgrp --preserve-root"
 salias reboot /sbin/reboot
