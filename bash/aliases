@@ -143,7 +143,6 @@ curl-resolve() {
   local URL=$2
   shift; shift 
  
-  echo curl --resolve $HOST:$PORT:$IP -s -D - $URL "$@"
   curl --resolve $HOST:$PORT:$IP -s -D - $URL "$@"
 }
 
