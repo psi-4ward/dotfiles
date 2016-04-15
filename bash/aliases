@@ -207,3 +207,15 @@ if [ -f /etc/lsb-release ]; then
   fi
 fi
 
+#h sshkf SSH Connection with keyforwarding, enable ssh-agent if its not running
+function sshkf() {
+  if [ -z "$SSH_AUTH_SOCK" ] || [ ! -e "$SSH_AUTH_SOCK" ]  ; then 
+    echo "Starting ssh-agent"
+    eval `ssh-agent`
+    ssh-add
+    echo
+  fi
+  
+  ssh -o "ForwardAgent=yes" "$@"
+}
+

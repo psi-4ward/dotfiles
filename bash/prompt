@@ -264,8 +264,19 @@ bind '"\e[B": history-search-forward'
 set_prompt () {
   Last_Command=$? # Must come first!
  
+  PS1=""
+  RIGHT=""
+  
+  # ssh-agent
+  if [ ! -z "$SSH_AUTH_SOCK" ] && [ -e "$SSH_AUTH_SOCK" ]  ; then
+    RIGHT+="[ssh-agent:on]"
+  fi
+  
+  # right aligend
+  PS1+='$(printf "%*s\r" $(( COLUMNS )) "$RIGHT")'
+  
   # <user>
-  PS1="\[$user_color\]\u\[$reset\] "
+  PS1+="\[$user_color\]\u\[$reset\] "
   # at <hostname>
   PS1+="\[$preposition_color\]at\[$reset\] \[$device_color\]\H\[$reset\] "
   # in <directory>
@@ -277,7 +288,9 @@ set_prompt () {
     echo -n \"\[$git_progress_color\]\$(get_git_progress)\" && \
     echo -n \"\[$preposition_color\]\" \
   )"
+  
 
+  
   # newline
   PS1+="\n"
   
