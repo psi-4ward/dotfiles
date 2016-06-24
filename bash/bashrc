@@ -13,5 +13,7 @@ export DOTFILESPATH=`dirname $DIR`
 [ -e $DIR/aliases ] && source $DIR/aliases
 [ -e $DIR/acd_func ] && source $DIR/acd_func
 
+# autojump
+[ -e /usr/share/autojump/autojump.bash ] && . /usr/share/autojump/autojump.bash
 
 [ -e $HOME/.bashrc.local ] && source $HOME/.bashrc.local
