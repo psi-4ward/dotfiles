@@ -3,6 +3,8 @@
 
 # ignore case on autocompletion
 set completion-ignore-case on
+set show-all-if-ambiguous on
+set show-all-if-unmodified on
 
 set meta-flag on
 set input-meta on

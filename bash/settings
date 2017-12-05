@@ -9,10 +9,6 @@ shopt -s cdspell
 # enable ** globbing
 shopt -s globstar
 
-# tab completion
-set show-all-if-ambiguous on
-set show-all-if-unmodified on
-
 # Rewrap lines on window resize
 shopt -s checkwinsize
 
